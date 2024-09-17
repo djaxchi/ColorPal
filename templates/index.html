@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorPal - Create Beautiful Color Palettes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ColorPal</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Upload Image</a></li>
+                    <li><a href="#">Generate Palette</a></li>
+                    <li><a href="#">Preview Palette</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section class="upload-section">
+            <div id="drop-container">
+                <h1>Upload an Image</h1>
+                <p>Upload an image and ColorPal will generate a beautiful color palette for you.</p>
+                <div id="drop-area">
+                    <form class="my-form">
+                        <p>Upload an image using the file dialog or by dragging and dropping onto the dashed region</p>
+                        <input type="file" id="fileElem" accept="image/*" onchange="handleFiles(this.files)">
+                        <label class="button" for="fileElem" id="file-button">Select files</label>
+                    </form>
+                </div>
+            </div>
+            <div id="output">
+                <div id="modal-overlay">
+                    <h1 id="modal-h1">ColorPal</h1>
+                    <p style="color: #fff;">Perfect colors make perfect designs</p>
+                    <div id="loading-spinner">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div> 
+                </div>
+                
+                <div id="gallery"></div>
+                <div id="palette"></div>
+            </div>
+        </section>
+
+        <section class="random-palette-section">
+            <div class="container">
+                <h1>Generate a Random Palette</h1>
+                <p>Click the button below to generate a random color palette.</p>
+                <div id="random-palette"></div>
+                <label class="button" id="generate-palette-button">Generate Palette</button>
+            </div>
+            <!-- Modal for JSON Output -->
+            <div id="json-modal" class="modal">
+                <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <h2>Color Palette JSON</h2>
+                <textarea id="json-output" readonly></textarea>
+                <button id="copy-json" class="button">Copy JSON</button>
+                </div>
+            </div>
+        </section>
+    </main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

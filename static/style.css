@@ -1,0 +1,473 @@
+/* Reset some default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+    
+}
+
+
+/* Container for centering content */
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: #fff;
+    padding: 10px 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#modal-h1{
+    margin: 0px;
+    font-size: 50px;
+    font-weight: bold;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+nav {
+    display: inline-block;
+    float: right;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: color 1s smooth;
+}
+
+nav ul li a:hover {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Main Content Styles */
+main {
+    margin-top: 30px;
+}
+
+
+
+.upload-section{
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 96%;
+    height:450px;
+    margin: 2%;
+
+}
+
+.random-palette-section {
+    background-image: 
+        radial-gradient(circle at 100% 150%, #f4f4f4 24%, white 25%, white 28%, #f4f4f4 29%, #f4f4f4 36%, white 36%, white 40%, transparent 40%, transparent),
+        radial-gradient(circle at 0    150%, #f4f4f4 24%, white 25%, white 28%, #f4f4f4 29%, #f4f4f4 36%, white 36%, white 40%, transparent 40%, transparent),
+        radial-gradient(circle at 50%  100%, white 10%, #f4f4f4 11%, #f4f4f4 23%, white 24%, white 30%, #f4f4f4 31%, #f4f4f4 43%, white 44%, white 50%, #f4f4f4 51%, #f4f4f4 63%, white 64%, white 71%, transparent 71%, transparent),
+        radial-gradient(circle at 100% 50%, white 5%, #f4f4f4 6%, #f4f4f4 15%, white 16%, white 20%, #f4f4f4 21%, #f4f4f4 30%, white 31%, white 35%, #f4f4f4 36%, #f4f4f4 45%, white 46%, white 49%, transparent 50%, transparent),
+        radial-gradient(circle at 0    50%, white 5%, #f4f4f4 6%, #f4f4f4 15%, white 16%, white 20%, #f4f4f4 21%, #f4f4f4 30%, white 31%, white 35%, #f4f4f4 36%, #f4f4f4 45%, white 46%, white 49%, transparent 50%, transparent);
+    background-size: 100px 50px;
+    padding: 40px;
+    height: 350px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.modal {
+    z-index: 100001;
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
+    justify-content: center;
+    align-items: center;
+}
+  
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    
+    border: 2px dashed #333; 
+    }
+
+.close {
+    position: absolute;
+    top: -13px;
+    right: 8px;
+    font-size: 33px;
+    cursor: pointer;
+    }
+
+#json-output {
+width: 100%;
+height: 100px;
+margin: 10px 0;
+}
+  
+
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#drop-container{
+    display: flex;
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    padding: 50px;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#drop-area {
+    display: flex;
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 450px;
+    padding: 20px;
+    margin-bottom: 20px;
+    
+}
+
+#drop-area.highlight {
+    border-color: purple;
+}
+
+#file-button{
+    position: relative;
+    left:130px;
+}
+
+.button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+#fileElem {
+    display: none;
+}
+
+#palette {
+    position: relative;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+} 
+
+#random-palette {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#gallery {
+    margin-top: 10px;
+    display: flex;
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+}
+
+#gallery img {
+    max-width: 100%;  /* Ensure image fits within the container */
+    max-height: 400px;  /* Control the image height */
+    width: auto;
+    height: auto;
+    display: block;
+    pointer-events: none;  /* Allow circles to be draggable without interference */
+    border-radius: 10px;  /* Optional styling */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Optional styling */
+}
+
+#output{
+    width: 50%;
+    height: 100%;
+    min-width: 495px;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: #fff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+    
+}
+
+#loading-spinner {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 11;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: jump 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(1) {animation-delay: 0s; }
+.dot:nth-child(2) {animation-delay: 0.2s; }
+.dot:nth-child(3) {animation-delay: 0.4s; }
+.dot:nth-child(4) {animation-delay: 0.6s; }
+.dot:nth-child(5) {animation-delay: 0.8s; }
+
+.dot{
+    background-color: #ffffff;
+}
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+#myDiv {
+    display: none;
+}
+
+#modal-overlay {
+    background-color: #333;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    top: 0;
+    left: 0;
+    left: 0px;
+    position: absolute; 
+    z-index: 10; 
+    width: 100%; 
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.5s ease, transform 0.5s ease; /
+    opacity: 1; 
+    
+}
+
+
+/* Hidden state for the modal (after JS triggers it) */
+#modal-overlay.hidden {
+    opacity: 0; /* Hide it by reducing opacity */
+    transform: translateX(100%); /* Slide out of view */
+    pointer-events: none; /* Disable pointer events while hidden */
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 0%;
+	}
+	50% {
+		background-position: 100% 100%;
+	}
+	80% {
+		background-position: 50% 50%;
+	}
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+#image-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#uploaded-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Maintain aspect ratio */
+}
+
+.color-picker-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    position: absolute;
+    cursor: grab;
+    transition: border-color 0.3s, transform 0.1s;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  /* Optional styling */
+}
+
+.color-picker-circle:active {
+    cursor: grabbing;
+}
+
+.color-picker-circle:hover {
+    border-color: #000;
+}
+
+.color-swatch {
+    width: 100px;
+    height: 80px;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    cursor: pointer;
+    border-radius: 5px; /* Optional: Add rounded corners */
+    transition: transform 0.3s; /* Optional: Add hover effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch:hover {
+    transform: scale(1.1); /* Optional: Slightly enlarge on hover */
+}
+
+.color-swatch span {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.color-copie {
+    width: 50px;
+    height: 80px;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    cursor: pointer;
+    border-radius: 5px; /* Optional: Add rounded corners */
+    transition: transform 0.3s; /* Optional: Add hover effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.color-copie:hover {
+    transform: scale(1.1); /* Optional: Slightly enlarge on hover */
+}
+
+.color-copie span {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.generate-palette-button:hover {
+    background-color: #555;
+}
+
+@media (max-width:950px) {
+    section {
+        flex-direction: column; /* Stack the divs vertically */
+        
+    }
+    .upload-section{
+        width: 100%;
+        height: 900px;
+    }
+    
+
+    #output {
+        height: 50%;
+        width: 100%;
+    }
+    #drop-container {
+        height: 50%;
+        width: 100%;
+    }
+
+    #modal-overlay::before {
+        border-top-left-radius: 0px;
+    }
+}
