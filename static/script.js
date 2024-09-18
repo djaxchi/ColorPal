@@ -1,48 +1,63 @@
 let dropArea = document.getElementById('drop-area');
 
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, preventDefaults, false);
-});
+if (dropArea) {
+  // Prevent default behavior for drag and drop events
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+  });
 
+  // Highlight the drop area on drag enter and drag over
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false);
+  });
+
+  // Remove highlight from the drop area on drag leave and drop
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false);
+  });
+
+  // Handle the file drop event
+  dropArea.addEventListener('drop', handleDrop, false);
+} else {
+  console.error('Element with ID "drop-area" not found.');
+}
+
+// Prevent default behavior for drag and drop events
 function preventDefaults(e) {
   e.preventDefault();
   e.stopPropagation();
 }
 
-['dragenter', 'dragover'].forEach(eventName => {
-  dropArea.addEventListener(eventName, highlight, false);
-});
-
-['dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, unhighlight, false);
-});
-
+// Highlight the drop area
 function highlight(e) {
+  e.preventDefault();
   dropArea.classList.add('highlight');
 }
 
+// Remove highlight from the drop area
 function unhighlight(e) {
+  e.preventDefault(); 
   dropArea.classList.remove('highlight');
 }
 
-dropArea.addEventListener('drop', handleDrop, false);
-
+// Handle the file drop event
 function handleDrop(e) {
+  e.preventDefault(); 
   let dt = e.dataTransfer;
   let files = dt.files;
-
   handleFiles(files);
 }
 
 function handleFiles(files) {
-  ([...files]).forEach(uploadFile);
+  ([...files]).forEach(file => {
+    console.log('File:', file); 
+    uploadFile(file);
+  });
 }
 
-function hideModal() {
-  const modal = document.getElementById('modal-overlay');
-  modal.classList.add('hidden');
-}
 
+
+// Hide the modal overlay with a transition
 function hideModal() {
   const modal = document.getElementById('modal-overlay');
   
@@ -51,30 +66,32 @@ function hideModal() {
   
   // Wait for the transition to finish, then fully hide it
   modal.addEventListener('transitionend', () => {
-    modal.style.display = 'none'; // This ensures the modal doesn't take space in the layout
+    modal.style.display = 'none'; 
   }, { once: true });
 }
 
+// Show the modal overlay
 function showModal() {
   const modalOverlay = document.getElementById('modal-overlay');
+  
   // Show modal overlay (remove hidden class and reset display)
   modalOverlay.classList.remove('hidden');
-  modalOverlay.style.display = 'flex'; // Ensure it's visible
+  modalOverlay.style.display = 'flex'; 
 }
-
+// Upload the file and handle the response
 function uploadFile(file) {
   const loadingSpinner = document.getElementById('loading-spinner');
   const gallery = document.getElementById('gallery');
   const palette = document.getElementById('palette');
-  
-  showModal(); // Show the modal overlay
+
+  showModal(); 
 
   // Clear previous gallery and palette content
   gallery.innerHTML = '';
   palette.innerHTML = '';
 
   // Show loading spinner
-  loadingSpinner.style.display = 'block'; 
+  loadingSpinner.style.display = 'block';
 
   // Prepare form data to send the image
   let url = '/upload';
@@ -86,109 +103,129 @@ function uploadFile(file) {
     method: 'POST',
     body: formData
   })
-  .then(response => response.json())
-  .then(result => {
-    displayImage(file, result.colors); // Display the uploaded image
-    displayPalette(result.colors);     // Display the generated palette
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
   })
-  .catch((error) => { 
-      console.error('Error uploading Image:', error);
+  .then(result => {
+    if (result.colors) {
+      displayImage(file, result.colors); 
+      displayPalette(result.colors);     
+    } else {
+      throw new Error('Invalid response format');
+    }
+  })
+  .catch(error => { 
+    console.error('Error uploading image:', error);
+    alert('There was an error uploading the image. Please try again.');
+  })
+  .finally(() => {
+    loadingSpinner.style.display = 'none';
+    hideModal();
   });
 }
 
+// Function to create a color swatch
+function createColorSwatch(color, onClick) {
+  const swatch = document.createElement('div');
+  swatch.className = 'color-swatch';
+  swatch.style.backgroundColor = color;
+  
+  const span = document.createElement('span');
+  span.textContent = color;
+  swatch.appendChild(span);
+
+  // Add click-to-copy functionality if provided
+  if (onClick) {
+    swatch.addEventListener('click', () => onClick(color));
+  }
+
+  return swatch;
+}
+
+// Function to create a JSON swatch with an icon
+function createJsonSwatch(onClick) {
+  const jsonSwatch = document.createElement('div');
+  jsonSwatch.className = 'color-copie'; 
+
+  const jsonIcon = document.createElement('img');
+  jsonIcon.src = iconUrl; 
+  jsonIcon.style.height = '35px';
+
+  jsonSwatch.appendChild(jsonIcon);
+
+  // Add click functionality to show JSON modal
+  if (onClick) {
+    jsonSwatch.addEventListener('click', onClick);
+  }
+
+  return jsonSwatch;
+}
+
+// Function to display a color palette
 function displayPalette(colorData) {
   const paletteDiv = document.getElementById('palette');
-  paletteDiv.innerHTML = '';  // Clear previous palette
+  paletteDiv.innerHTML = '';  
 
-  const colors = Object.keys(colorData);
+  try {
+    const colors = Object.keys(colorData);
 
-  // Create color swatches
-  colors.forEach(color => {
-    const swatch = document.createElement('div');
-    swatch.className = 'color-swatch';
-    swatch.style.backgroundColor = color;
-    const span = document.createElement('span');
-    span.textContent = color;
-    swatch.appendChild(span);
+    colors.forEach(color => {
+      const swatch = createColorSwatch(color, copyToClipboard);
+      paletteDiv.appendChild(swatch);
+    });
 
-    // Add click-to-copy functionality
-    swatch.addEventListener('click', () => copyToClipboard(color));
-    paletteDiv.appendChild(swatch);
-  });
+    const jsonSwatch = createJsonSwatch(() => showJsonModal(colors));
+    paletteDiv.appendChild(jsonSwatch);
 
-  // Add the 6th swatch for displaying JSON
-  const jsonSwatch = document.createElement('div');
-  jsonSwatch.className = 'color-copie';
-  jsonSwatch.style.backgroundColor = '#000';  // You can set any color for the button
-  const jsonSpan = document.createElement('span');
-  jsonSpan.textContent = 'Show JSON';
-  jsonSwatch.appendChild(jsonSpan);
-
-  // When clicked, show the JSON modal
-  jsonSwatch.addEventListener('click', () => showJsonModal(colors));
-  paletteDiv.appendChild(jsonSwatch);
-
-  console.log('Palette displayed:', colors);
-  
-  // Hide the loading spinner after palette is shown
-  const loadingSpinner = document.getElementById('loading-spinner');
-  loadingSpinner.style.display = 'none'; 
-
-  // Hide the modal overlay after displaying the palette
-  hideModal();
+    console.log('Palette displayed:', colors);
+  } catch (error) {
+    console.error('Error displaying palette:', error);
+    alert('An error occurred while displaying the palette.');
+  } finally {
+    const loadingSpinner = document.getElementById('loading-spinner');
+    loadingSpinner.style.display = 'none'; 
+    hideModal();
+  }
 }
 
+// Function to display a random color palette
 function displayRandomPalette(colorData) {
   const paletteDiv = document.getElementById('random-palette');
-  paletteDiv.innerHTML = '';  // Clear previous palette
+  paletteDiv.innerHTML = ''; 
 
-  const colors = colorData;
+  try {
+    const colors = colorData;
 
-  // Create color swatches
-  colors.forEach(color => {
-    const swatch = document.createElement('div');
-    swatch.className = 'color-swatch';
-    swatch.style.backgroundColor = color;
-    const span = document.createElement('span');
-    span.textContent = color;
-    swatch.appendChild(span);
+    colors.forEach(color => {
+      const swatch = createColorSwatch(color, copyToClipboard);
+      paletteDiv.appendChild(swatch);
+    });
 
-    // Add click-to-copy functionality
-    swatch.addEventListener('click', () => copyToClipboard(color));
-    paletteDiv.appendChild(swatch);
-  });
+    const jsonSwatch = createJsonSwatch(() => showJsonModal(colors));
+    paletteDiv.appendChild(jsonSwatch);
 
-  // Add the 6th swatch for displaying JSON
-  const jsonSwatch = document.createElement('div');
-  jsonSwatch.className = 'color-copie';
-  jsonSwatch.style.backgroundColor = '#000';  // You can set any color for the button
-  const jsonSpan = document.createElement('span');
-  jsonSpan.textContent = 'Show JSON';
-  jsonSwatch.appendChild(jsonSpan);
-
-  // When clicked, show the JSON modal
-  jsonSwatch.addEventListener('click', () => showJsonModal(colors));
-  paletteDiv.appendChild(jsonSwatch);
-
-  console.log('Palette displayed:', colors);
+    console.log('Random palette displayed:', colors);
+  } catch (error) {
+    console.error('Error displaying random palette:', error);
+    alert('An error occurred while displaying the random palette.');
+  }
 }
 
 // Function to show the JSON modal
 function showJsonModal(colors) {
   const modal = document.getElementById('json-modal');
   const jsonOutput = document.getElementById('json-output');
-  modal.style.display = 'flex';  // Show the modal
-  jsonOutput.value = JSON.stringify(colors, null, 2);  // Format the colors in JSON
-
-  // Disable scrolling on the background
+  modal.style.display = 'flex';  
+  jsonOutput.value = JSON.stringify(colors, null, 2); 
   document.body.style.overflow = 'hidden';
 }
 
 // Close modal when clicking the close button
 document.getElementById('close-modal').addEventListener('click', () => {
   document.getElementById('json-modal').style.display = 'none';
-
-  // Disable scrolling on the background
   document.body.style.overflow = '';
 });
 
@@ -197,7 +234,6 @@ window.addEventListener('click', (event) => {
   const modal = document.getElementById('json-modal');
   if (event.target == modal) {
     modal.style.display = 'none';
-    // Disable scrolling on the background
     document.body.style.overflow = '';
   }
 });
@@ -390,9 +426,7 @@ function hexToRgb(hex) {
 }
 
 document.getElementById('generate-palette-button').addEventListener('click', function() {
-  const url = '/generate-random-palette'; // The Flask route to get the random palette
-
-  // Fetch the random palette from the backend
+  const url = '/generate-random-palette'; 
   fetch(url)
     .then(response => {
       if (!response.ok) {
@@ -402,7 +436,7 @@ document.getElementById('generate-palette-button').addEventListener('click', fun
     })
     .then(result => {
       if (result.colors) {
-        displayRandomPalette(result.colors); // Use the existing displayPalette function to show the palette
+        displayRandomPalette(result.colors); 
       } else {
         console.error('Unexpected response format:', result);
       }

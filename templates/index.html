@@ -20,6 +20,7 @@
             </nav>
         </div>
     </header>
+    <div id="header-filler"></div>
     
     <main>
         <section class="upload-section">
@@ -70,6 +71,12 @@
             </div>
         </section>
     </main>
+<!-- External script file -->
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- Inline script to define iconUrl -->
+<script>
+    const iconUrl = "/static/images/clip-line-icon.png";
+</script>
 </body>
 </html>
