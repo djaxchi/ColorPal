@@ -528,6 +528,8 @@ input[type="file"] {
         justify-content: flex-start;
         overflow: overlay;
         width: 100%;
+        position: relative;
+        left: 15%;
     }
     .color-swatch {
         width: 60px;
