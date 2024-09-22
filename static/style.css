@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
@@ -31,6 +35,7 @@ header {
     left: 0;
     width: 100%;
     height: 100px;
+    z-index: 20;
 }
 
 #header-filler{
@@ -241,7 +246,7 @@ input[type="file"] {
     flex-direction: row;
     justify-content: center;
     margin-bottom: 20px;
-    overflow: hidden;
+    overflow: overlay;
 } 
 
 #random-palette {
@@ -250,6 +255,7 @@ input[type="file"] {
     flex-direction: row;
     justify-content: center;
     margin-bottom: 40px;
+    overflow: overlay;
 }
 
 #gallery {
@@ -457,27 +463,94 @@ input[type="file"] {
     background-color: #555;
 }
 
-@media (max-width:950px) {
+@media (max-width:850px) {
+    main{
+        margin-top: 0px;
+    }
+    header {
+        overflow: hidden;
+        position: relative;
+    }
+    #header-filler{
+        display: none;
+    }
     section {
-        flex-direction: column; /* Stack the divs vertically */
+        flex-direction: column; 
+        width: 90%;
         
     }
-    .upload-section{
+
+    #modal-overlay {
         width: 100%;
-        height: 900px;
+        height: 100%;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 10px;
+    }
+    .upload-section{
+        height: 1200px;
+        width:94%;
+        margin: 3%;
     }
     
 
     #output {
         height: 50%;
-        width: 100%;
+        width:100%;
+        min-width: 0px;
+        border-bottom-left-radius: 10px;
     }
     #drop-container {
         height: 50%;
-        width: 100%;
+        width:90%;
+        padding: 0px;
     }
 
     #modal-overlay::before {
         border-top-left-radius: 0px;
+    }
+
+    .random-palette-section {
+        height: 450px;
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    #palette{
+        justify-content: center;
+        overflow: overlay;
+        width: 100%;
+    }
+    #random-palette{
+        justify-content: flex-start;
+        overflow: overlay;
+        width: 100%;
+    }
+    .color-swatch {
+        width: 60px;
+        height: 60px;
+    }
+    .color-copie {
+        width: 30px;
+        height: 60px;
+    }
+    .color-swatch span {
+        margin-bottom: 5px;
+        font-size: 11px;
+    }
+
+    header .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    ul{
+        margin: 5px;
+    }
+    li{
+        font-size: 13px;
     }
 }

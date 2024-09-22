@@ -328,6 +328,7 @@ function makeDraggable(circle, ctx, imgWidth, imgHeight, imgRect) {
   let isDragging = false;
   let startX, startY, initialX, initialY;
 
+  // Mouse down (Desktop)
   circle.addEventListener('mousedown', (e) => {
       isDragging = true;
       initialX = parseInt(circle.style.left, 10);
@@ -337,6 +338,17 @@ function makeDraggable(circle, ctx, imgWidth, imgHeight, imgRect) {
       circle.style.transition = 'none'; 
   });
 
+  // Touch start (Mobile)
+  circle.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      initialX = parseInt(circle.style.left, 10);
+      initialY = parseInt(circle.style.top, 10);
+      startX = e.touches[0].clientX; // Get touch point
+      startY = e.touches[0].clientY; // Get touch point
+      circle.style.transition = 'none'; 
+  }, { passive: false });
+
+  // Mouse move (Desktop)
   document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
 
@@ -346,7 +358,7 @@ function makeDraggable(circle, ctx, imgWidth, imgHeight, imgRect) {
       const newX = initialX + dx;
       const newY = initialY + dy;
 
-      if (newX >= 0 && newX <= imgRect.width&&
+      if (newX >= 0 && newX <= imgRect.width &&
           newY >= 0 && newY <= imgRect.height) {
           circle.style.left = `${newX}px`;
           circle.style.top = `${newY}px`;
@@ -355,12 +367,39 @@ function makeDraggable(circle, ctx, imgWidth, imgHeight, imgRect) {
       }
   });
 
+  // Touch move (Mobile)
+  document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault(); // Prevent default touch actions like scrolling
+
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+
+      const newX = initialX + dx;
+      const newY = initialY + dy;
+
+      if (newX >= 0 && newX <= imgRect.width &&
+          newY >= 0 && newY <= imgRect.height) {
+          circle.style.left = `${newX}px`;
+          circle.style.top = `${newY}px`;
+
+          updateColor(circle, ctx, imgWidth, imgHeight, newX, newY);
+      }
+  }, { passive: false });
+
+  // Mouse up (Desktop)
   document.addEventListener('mouseup', () => {
       isDragging = false;
-      circle.style.transition = '';
+      circle.style.transition = 'all 0.3s ease'; // Optional: Add smooth transition after dragging ends
   });
 
+  // Touch end (Mobile)
+  document.addEventListener('touchend', () => {
+      isDragging = false;
+      circle.style.transition = 'all 0.3s ease'; // Optional: Add smooth transition after dragging ends
+  });
 }
+
 
 
 function updateColor(circle, ctx, imgWidth, imgHeight, x, y) {

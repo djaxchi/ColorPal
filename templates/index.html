@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ColorPal - Create Beautiful Color Palettes</title>
+    <title>ColorPal - The Ultimate Free Color Palette Generator</title>
+    <meta name="description" content="Create stunning color palettes with ColorPal. Upload images and generate color schemes for web design, graphic design, and more. Free and easy-to-use color palette generator from images.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "WebApplication",
+          "name": "ColorPal",
+          "url": "https://www.colorpal.com",
+          "description": "Create stunning color palettes from uploaded images. Use ColorPal for web design, branding, and creative projects.",
+          "applicationCategory": "Design",
+          "operatingSystem": "All",
+          "creator": {
+            "@type": "Organization",
+            "name": "ColorPal"
+          }
+        }
+        </script>
+        
 </head>
 <body>
     <header>
@@ -13,9 +30,8 @@
             <div class="logo">ColorPal</div>
             <nav>
                 <ul>
-                    <li><a href="#">Upload Image</a></li>
-                    <li><a href="#">Generate Palette</a></li>
-                    <li><a href="#">Preview Palette</a></li>
+                    <li><a href="#drop-container">Image To Palette</a></li>
+                    <li><a href="#generate-palette-button">Generate Random Palette</a></li>
                 </ul>
             </nav>
         </div>
@@ -25,7 +41,7 @@
     <main>
         <section class="upload-section">
             <div id="drop-container">
-                <h1>Upload an Image</h1>
+                <h1 style="text-align: center;">Create Stunning Color Palettes from Images</h1>
                 <p>Upload an image and ColorPal will generate a beautiful color palette for you.</p>
                 <div id="drop-area">
                     <form class="my-form">
@@ -55,7 +71,7 @@
 
         <section class="random-palette-section">
             <div class="container">
-                <h1>Generate a Random Palette</h1>
+                <h1>Generate a Random color Palette</h1>
                 <p>Click the button below to generate a random color palette.</p>
                 <div id="random-palette"></div>
                 <label class="button" id="generate-palette-button">Generate Palette</button>
