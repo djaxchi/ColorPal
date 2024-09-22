@@ -525,11 +525,9 @@ input[type="file"] {
         width: 100%;
     }
     #random-palette{
-        justify-content: flex-start;
+        justify-content: center;
         overflow: overlay;
         width: 100%;
-        position: relative;
-        left: 15%;
     }
     .color-swatch {
         width: 60px;
