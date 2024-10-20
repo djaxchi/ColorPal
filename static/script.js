@@ -50,7 +50,6 @@ function handleDrop(e) {
 
 function handleFiles(files) {
   ([...files]).forEach(file => {
-    console.log('File:', file); 
     uploadFile(file);
   });
 }
@@ -180,7 +179,6 @@ function displayPalette(colorData) {
     const jsonSwatch = createJsonSwatch(() => showJsonModal(colors));
     paletteDiv.appendChild(jsonSwatch);
 
-    console.log('Palette displayed:', colors);
   } catch (error) {
     console.error('Error displaying palette:', error);
     alert('An error occurred while displaying the palette.');
@@ -207,7 +205,6 @@ function displayRandomPalette(colorData) {
     const jsonSwatch = createJsonSwatch(() => showJsonModal(colors));
     paletteDiv.appendChild(jsonSwatch);
 
-    console.log('Random palette displayed:', colors);
   } catch (error) {
     console.error('Error displaying random palette:', error);
     alert('An error occurred while displaying the random palette.');
@@ -266,7 +263,6 @@ function displayImage(file) {
       })
       .then(response => response.json())
       .then(result => {
-          console.log('Colors:', result.colors);
 
           createDraggableCircles(result.colors, img);
           displayPalette(result.colors);

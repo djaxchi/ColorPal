@@ -185,6 +185,9 @@ p {
 
 form {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 input[type="file"] {
@@ -219,7 +222,6 @@ input[type="file"] {
 
 #file-button{
     position: relative;
-    left:130px;
 }
 
 .button {
@@ -436,16 +438,11 @@ input[type="file"] {
     font-weight: bold;
 }
 .color-copie {
-    width: 50px;
-    height: 80px;
     margin: 0 5px;
     display: flex;
     cursor: pointer;
     border-radius: 100px; /* Optional: Add rounded corners */
     transition: transform 0.3s; /* Optional: Add hover effect */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border: 2px dashed #ccc;
-    background-color: #fff;
     align-items: center;
     justify-content: center;
 }
@@ -464,7 +461,7 @@ input[type="file"] {
     background-color: #555;
 }
 
-@media (max-width:850px) {
+@media (max-width:1000px) {
     main{
         margin-top: 0px;
     }
