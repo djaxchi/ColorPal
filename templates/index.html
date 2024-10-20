@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ColorPal - The Ultimate Free Color Palette Generator</title>
+    <title>ColorPal - Générateur Gratuit de Palettes de Couleurs à partir d'image</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Create stunning color palettes with ColorPal. Upload images and generate color schemes for web design, graphic design, and more. Free and easy-to-use color palette generator from images.">
+    <meta name="description" content="Créez des palettes de couleurs magnifiques avec ColorPal. Téléchargez des images et générez des schémas de couleurs pour la conception web, le design graphique, et bien plus encore. Générateur de palettes de couleurs facile et gratuit à partir d'images.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script type="application/ld+json">
@@ -13,7 +13,7 @@
           "@type": "WebApplication",
           "name": "ColorPal",
           "url": "https://www.colorpal.com",
-          "description": "Create stunning color palettes from uploaded images. Use ColorPal for web design, branding, and creative projects.",
+          "description": "Créez des palettes de couleurs magnifiques à partir d'images téléchargées. Utilisez ColorPal pour la conception web, le branding, et des projets créatifs.",
           "applicationCategory": "Design",
           "operatingSystem": "All",
           "creator": {
@@ -21,14 +21,14 @@
             "name": "ColorPal"
           }
         }
-        </script>
-        <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png">
-        <link rel="manifest" href="../static/favicon/site.webmanifest">
-        <link rel="mask-icon" href="../static/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../static/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <header>
@@ -36,8 +36,8 @@
             <div class="logo">ColorPal</div>
             <nav>
                 <ul>
-                    <li><a href="#drop-container">Image To Palette</a></li>
-                    <li><a href="#generate-palette-button">Generate Random Palette</a></li>
+                    <li><a href="#drop-container">Image vers Palette</a></li>
+                    <li><a href="#generate-palette-button">Générer une Palette Aléatoire</a></li>
                 </ul>
             </nav>
         </div>
@@ -47,20 +47,20 @@
     <main>
         <section class="upload-section">
             <div id="drop-container">
-                <h1 style="text-align: center;">Create Stunning Color Palettes from Images</h1>
-                <p>Upload an image and ColorPal will generate a beautiful color palette for you.</p>
+                <h1 style="text-align: center;">Créez des Palettes de Couleurs Magnifiques à partir d'Images</h1>
+                <p>Téléchargez une image et ColorPal générera pour vous une magnifique palette de couleurs.</p>
                 <div id="drop-area">
                     <form class="my-form">
-                        <p>Upload an image using the file dialog or by dragging and dropping onto the dashed region</p>
+                        <p>Téléchargez une image à l'aide de la boîte de dialogue ou en la faisant glisser dans la zone en pointillés.</p>
                         <input type="file" id="fileElem" accept="image/*" onchange="handleFiles(this.files)">
-                        <label class="button" for="fileElem" id="file-button">Select files</label>
+                        <label class="button" for="fileElem" id="file-button">Sélectionner un fichier</label>
                     </form>
                 </div>
             </div>
             <div id="output">
                 <div id="modal-overlay">
                     <h1 id="modal-h1">ColorPal</h1>
-                    <p style="color: #fff;">Perfect colors make perfect designs</p>
+                    <p style="color: #fff;">Des couleurs parfaites pour des designs parfaits</p>
                     <div id="loading-spinner">
                         <span class="dot"></span>
                         <span class="dot"></span>
@@ -77,18 +77,18 @@
 
         <section class="random-palette-section">
             <div class="container">
-                <h1>Generate a Random color Palette</h1>
-                <p>Click the button below to generate a random color palette.</p>
+                <h1>Générer une Palette de Couleurs Aléatoire</h1>
+                <p>Cliquez sur le bouton ci-dessous pour générer une palette de couleurs aléatoire.</p>
                 <div id="random-palette"></div>
-                <label class="button" id="generate-palette-button">Generate Palette</button>
+                <label class="button" id="generate-palette-button">Générer une Palette</label>
             </div>
             <!-- Modal for JSON Output -->
             <div id="json-modal" class="modal">
                 <div class="modal-content">
                 <span class="close" id="close-modal">&times;</span>
-                <h2>Color Palette JSON</h2>
+                <h2>Palette de Couleurs en JSON</h2>
                 <textarea id="json-output" readonly></textarea>
-                <button id="copy-json" class="button">Copy JSON</button>
+                <button id="copy-json" class="button">Copier le JSON</button>
                 </div>
             </div>
         </section>
