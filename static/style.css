@@ -10,6 +10,7 @@ html {
 }
 
 body {
+    height: 100vh;
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     color: #333;
@@ -111,7 +112,7 @@ main {
     justify-content: center;
     display: flex;
     width: 96%;
-    height:450px;
+    height:50vh;
     margin: 2%;
 
 }
@@ -125,7 +126,7 @@ main {
         radial-gradient(circle at 0    50%, white 5%, #f4f4f4 6%, #f4f4f4 15%, white 16%, white 20%, #f4f4f4 21%, #f4f4f4 30%, white 31%, white 35%, #f4f4f4 36%, #f4f4f4 45%, white 46%, white 49%, transparent 50%, transparent);
     background-size: 100px 50px;
     padding: 40px;
-    height: 350px;
+    height: 50vh;
     text-align: center;
     position: relative;
     display: flex;
@@ -193,7 +194,7 @@ input[type="file"] {
 #drop-container{
     display: flex;
     width: 50%;
-    height: 100%;
+    height: 50vh;
     text-align: left;
     padding: 50px;
     justify-content: center;
